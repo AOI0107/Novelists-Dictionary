@@ -1,0 +1,15 @@
+<h1>Posts#new</h1>
+<span>現在ログイン中のユーザー：<%= current_user.name %></span>
+<%= link_to 'マイページへ', mypage_path %>
+
+<%= form_for(@post, url: posts_path) do |f| %>
+    <div>
+        <%= f.label :中身 %><br>
+        <%= f.text_area :body %>
+    </div>
+    <div><%= f.submit "投稿する" %></div>
+<% end %>
+
+
+
+    
