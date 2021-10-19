@@ -2,13 +2,30 @@
 <span>現在ログイン中のユーザー：<%= current_user.name %></span>
 <%= link_to 'マイページへ', mypage_path %>
 
+<%= form_tag({controller:"posts",action:"new"}, method: :get) do %>
+    <td><%= text_field_tag :tag %></td>
+    <td><%= submit_tag 'タグを追加' %></td>
+<% end %>
+
 <%= form_for(@post, url: posts_path) do |f| %>
     <div>
         <%= f.label :中身 %><br>
         <%= f.text_area :body %>
     </div>
-    <div><%= f.submit "投稿する" %></div>
+    <div class='form-group'>
+        <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+            <div class='form-check'>
+                <%= tag.label class: 'form-check-label' do %>
+                    <%= tag.check_box class: 'form-check-input' %>
+                    <%= tag.text %>
+                <% end %>
+            </div>
+        <% end %>
+        <div><%= f.submit "投稿する" %></div>
+    </div>
 <% end %>
+
+
 
 
 

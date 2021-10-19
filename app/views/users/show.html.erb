@@ -1,27 +1,24 @@
 <table>
     <thead>
-    <span>現在ログイン中のユーザー：<%= current_user.name %></span>
-    <%= link_to 'マイページへ', mypage_path %>
         <tr>
             <th>投稿者名</th>
             <th>投稿</th>
             <th>タグ</th>
             <th></th>
-            <th></th>
-            <th></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="user">
+    <%= @user.name %>
         <% @posts.each do |post| %>
             <tr>
                 <td><%= post.user.name %></td>
-                <td><%= post.body %></td> 
+                <td><%= post.body %></td>
                 <% post.tags.each do |tag| %>
                     <td><%= tag.name %></td>
-                <% end %>          
+                <% end %>
                 <% if post.user == current_user %>
                     <td><%= link_to "編集", edit_post_path(post) %></td>　　　　　　　  
-                    <td><%= link_to "削除", post_path(post), method: :delete %></td>
+                    <td><%= link_to "削除", post_path(post), method: :delete, remote: true %></td>
                 <% else %>
                     <td></td>
                     <td></td>
@@ -30,8 +27,9 @@
                     <td><%= link_to "ブックマークを外す", post_bookmarks_path(post), method: :delete %></td>
                 <% else %>
                     <td><%= link_to "ブックマーク", post_bookmarks_path(post), method: :post %></td>
-                <% end %>                        
+                <% end %>            
             </tr>
         <% end %>
     </tbody>
+    <%= link_to 'トップに戻る', root_path %>
 </table>

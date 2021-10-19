@@ -1,0 +1,41 @@
+<% if @users.present? && @posts.present? && @tags.present? %>
+  <h3>【Users,Posts,Tagsモデルの検索結果】検索ワード：<%= @content %></h3>
+  <h4>・ユーザー名</h4>
+  <%= render 'posts/users', users: @users %>
+  <h4>・投稿内容</h4>
+  <%= render 'posts/search_index', posts: @posts %>
+  <h4>・タグ名</h4>
+  <%= render 'posts/tags', tags: @tags %>
+<% elsif @users.present? && @posts.present? && @tags.empty? %>
+  <h3>【Users,Postsモデルの検索結果】検索ワード：<%= @content %></h3>
+  <h4>・ユーザー名</h4>
+  <%= render 'posts/users', users: @users %>
+  <h4>・投稿内容</h4>
+  <%= render 'posts/search_index', posts: @posts %>
+<% elsif @users.present? && @posts.empty? && @tags.present? %>
+  <h3>【Users,Tagsモデルの検索結果】検索ワード：<%= @content %></h3>
+  <h4>・ユーザー名</h4>
+  <%= render 'posts/users', users: @users %>
+  <h4>・タグ名</h4>
+  <%= render 'posts/tags', tags: @tags %>
+<% elsif @users.empty? && @posts.present? && @tags.present? %>
+  <h3>【Posts,Tagsモデルの検索結果】検索ワード：<%= @content %></h3>
+  <h4>・投稿内容</h4>
+  <%= render 'posts/search_index', posts: @posts %>
+  <h4>・タグ名</h4>
+  <%= render 'posts/tags', tags: @tags %>
+<% elsif @users.present? && @posts.empty? && @tags.empty? %>
+  <h3>【Usersモデルの検索結果】検索ワード：<%= @content %></h3>
+  <h4>・ユーザー名</h4>
+  <%= render 'posts/users', users: @users %>
+<% elsif @users.empty? && @posts.present? && @tags.empty? %>
+  <h3>【Postsモデルの検索結果】検索ワード：<%= @content %></h3>
+  <h4>・投稿内容</h4>
+  <%= render 'posts/search_index', posts: @posts %>
+<% elsif @users.empty? && @posts.empty? && @tags.present? %>
+  <h3>【Tagsモデルの検索結果】検索ワード：<%= @content %></h3>
+  <h4>・タグ名</h4>
+  <%= render 'posts/tags', tags: @tags %>
+<% else %>
+  <h3>検索ワード：<%= @content %>に該当はありません</h3>
+<% end %>

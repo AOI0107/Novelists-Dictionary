@@ -6,12 +6,15 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to posts_index_path
     else  
-      render :new  
+      render :new 
     end
   end
 
   def new
     @post = Post.new
+    if params[:tag]
+      Tag.create(name: params[:tag])
+    end
   end
 
   def index
@@ -19,23 +22,28 @@ class PostsController < ApplicationController
   end
 
   def edit
+    if params[:tag]
+      Tag.create(name: params[:tag])
+    end
   end
- 
+
   def update
+    @post= Post.find(params[:id])
     if @post.update(post_params)
       redirect_to posts_index_path
     else
       render :new
     end
   end
- 
+
   def destroy
     @post.destroy
     redirect_to request.referer
   end
+  
   private  
   def post_params
-   params.require(:post).permit(:body)  
+    params.require(:post).permit(:body, tag_ids: [])  
   end
 
   private

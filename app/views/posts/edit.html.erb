@@ -1,9 +1,25 @@
 <h1>Posts#edit</h1>
 <span>現在ログイン中のユーザー：<%= current_user.name %></span>
+
+<%= form_tag({controller:"posts",action:"edit"}, method: :get) do %>
+    <td><%= text_field_tag :tag %></td>
+    <td><%= submit_tag 'タグを追加' %></td>
+<% end %>
+
 <%= form_for(@post, url: post_path(@post)) do |f| %>
     <div>
         <%= f.label :中身 %><br>
         <%= f.text_area :body, :placeholder =>"#{@post.body}" %>
     </div>
-    <div><%= f.submit "更新する" %></div>
+    <div class='form-group'>
+        <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+            <div class='form-check'>
+                <%= tag.label class: 'form-check-label' do %>
+                    <%= tag.check_box class: 'form-check-input' %>
+                    <%= tag.text %>
+                <% end %>
+            </div>
+        <% end %>
+        <div><%= f.submit "編集する" %></div>
+    </div>
 <% end %>
