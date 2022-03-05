@@ -21,23 +21,6 @@ ActiveRecord::Schema.define(version: 2021_10_14_152216) do
     t.index ["user_id"], name: "index_bookmarks_on_user_id"
   end
 
-  create_table "categories", charset: "utf8mb4", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["name"], name: "index_categories_on_name", unique: true
-  end
-
-  create_table "post_categories", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "post_id"
-    t.integer "category_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["category_id"], name: "index_post_categories_on_category_id"
-    t.index ["post_id", "category_id"], name: "index_post_categories_on_post_id_and_category_id", unique: true
-    t.index ["post_id"], name: "index_post_categories_on_post_id"
-  end
-
   create_table "post_tag_relations", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "post_id", null: false
     t.bigint "tag_id", null: false
